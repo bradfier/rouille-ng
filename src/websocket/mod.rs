@@ -70,12 +70,12 @@ pub use self::websocket::SendError;
 pub use self::websocket::Websocket;
 
 use base64;
+use sha1::Sha1;
 use std::borrow::Cow;
 use std::error;
 use std::fmt;
 use std::sync::mpsc;
 use std::vec::IntoIter as VecIntoIter;
-use sha1::Sha1;
 
 use Request;
 use Response;
@@ -109,10 +109,10 @@ impl fmt::Display for WebsocketError {
         let description = match *self {
             WebsocketError::InvalidWebsocketRequest => {
                 "the request does not match a websocket request"
-            },
+            }
             WebsocketError::WrongSubprotocol => {
                 "the subprotocol passed to the function was not requested by the client"
-            },
+            }
         };
 
         write!(fmt, "{}", description)
@@ -120,9 +120,12 @@ impl fmt::Display for WebsocketError {
 }
 
 /// Builds a `Response` that initiates the websocket protocol.
-pub fn start<S>(request: &Request, subprotocol: Option<S>)
-                -> Result<(Response, mpsc::Receiver<Websocket>), WebsocketError>
-    where S: Into<Cow<'static, str>>
+pub fn start<S>(
+    request: &Request,
+    subprotocol: Option<S>,
+) -> Result<(Response, mpsc::Receiver<Websocket>), WebsocketError>
+where
+    S: Into<Cow<'static, str>>,
 {
     let subprotocol = subprotocol.map(|s| s.into());
 
@@ -171,11 +174,15 @@ pub fn start<S>(request: &Request, subprotocol: Option<S>)
 
     let mut response = Response::text("");
     response.status_code = 101;
-    response.headers.push(("Upgrade".into(), "websocket".into()));
+    response
+        .headers
+        .push(("Upgrade".into(), "websocket".into()));
     if let Some(sp) = subprotocol {
         response.headers.push(("Sec-Websocket-Protocol".into(), sp));
     }
-    response.headers.push(("Sec-Websocket-Accept".into(), key.into()));
+    response
+        .headers
+        .push(("Sec-Websocket-Accept".into(), key.into()));
     response.upgrade = Some(Box::new(tx) as Box<_>);
     Ok((response, rx))
 }
@@ -195,13 +202,17 @@ pub fn start<S>(request: &Request, subprotocol: Option<S>)
 // TODO: return references to the request
 pub fn requested_protocols(request: &Request) -> RequestedProtocolsIter {
     match request.header("Sec-WebSocket-Protocol") {
-        None => RequestedProtocolsIter { iter: Vec::new().into_iter() },
+        None => RequestedProtocolsIter {
+            iter: Vec::new().into_iter(),
+        },
         Some(h) => {
-            let iter = h.split(',')
-                        .map(|s| s.trim())
-                        .filter(|s| !s.is_empty())
-                        .map(|s| s.to_owned())
-                        .collect::<Vec<_>>().into_iter();
+            let iter = h
+                .split(',')
+                .map(|s| s.trim())
+                .filter(|s| !s.is_empty())
+                .map(|s| s.to_owned())
+                .collect::<Vec<_>>()
+                .into_iter();
             RequestedProtocolsIter { iter }
         }
     }
@@ -226,8 +237,7 @@ impl Iterator for RequestedProtocolsIter {
     }
 }
 
-impl ExactSizeIterator for RequestedProtocolsIter {
-}
+impl ExactSizeIterator for RequestedProtocolsIter {}
 
 /// Turns a `Sec-WebSocket-Key` into a `Sec-WebSocket-Accept`.
 fn convert_key(input: &str) -> String {
