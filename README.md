@@ -26,8 +26,7 @@ fixes and quality of life improvements, while retaining API compatibility with t
 - Maintain drop-in compatibility with Rouille 3.0.0
 - Maintain the codebase vis-à-vis deprecation or compiler warnings introduced by new Rust versions.
 - Support a minimum Rust version equal to that shipped with Debian Stable (currently 1.41).
-- Backport security fixes to 3.0.y releases.
-- Add non-breaking QoL improvements to 3.x releases.
+- Add security fixes and non-breaking QoL improvements to 3.x releases.
 
 Community contributions in line with these goals are welcome!
 
