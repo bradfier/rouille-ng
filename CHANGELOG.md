@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 3.0.1
+- First `rouille-ng` release.
+- Refactor all doc-tests to import `rouille_ng` instead of `rouille`.
+
 ## Version 3.0.0
 - Bump minimum supported Rust version to 1.34.2
 - embedded, exposed `url` version increased to 2.0
