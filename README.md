@@ -1,4 +1,6 @@
-# Rouille, a Rust web micro-framework
+# Rouille NG
+
+**rouille-ng** is a maintenance fork of [Rouille](https://github.com/tomaka/rouille), 
 
 Rouille is a micro-web-framework library. It creates a listening socket and parses incoming HTTP
 requests from clients, then gives you the hand to process the request.
@@ -11,14 +13,28 @@ by rouille. More general concepts (like database handling or templating) are not
 as they are considered orthogonal to the micro web framework. However rouille's design makes it easy
 to use in conjunction with any third-party library without the need for any glue code.
 
-## [Documentation](https://docs.rs/rouille)
+## [Documentation](https://docs.rs/rouille-ng)
 
-[![](https://docs.rs/rouille/badge.svg)](https://docs.rs/rouille)
+[![](https://docs.rs/rouille-ng/badge.svg)](https://docs.rs/rouille-ng)
+
+## What's with Rouille NG?
+The original Rouille project has been unmaintained for over a year, and it seems unlikely to become
+active again soon. Rouille NG is intended to support teams using Rouille in production with security
+fixes and quality of life improvements, while retaining API compatibility with the original library.
+
+### Goals
+- Maintain drop-in compatibility with Rouille 3.0.0
+- Maintain the codebase vis-à-vis deprecation or compiler warnings introduced by new Rust versions.
+- Support a minimum Rust version equal to that shipped with Debian Stable (currently 1.41).
+- Backport security fixes to 3.0.y releases.
+- Add non-breaking QoL improvements to 3.x releases.
+
+Community contributions in line with these goals are welcome!
 
 ## Getting started
 
-If you have general knowledge about how HTTP works, [the documentation](https://docs.rs/rouille)
-and [the well-documented examples](https://github.com/tomaka/rouille/tree/master/examples) are
+If you have general knowledge about how HTTP works, [the documentation](https://docs.rs/rouille-ng)
+and [the well-documented examples](https://github.com/bradfier/rouille-ng/tree/master/examples) are
 good resources to get you started.
 
 ## License
