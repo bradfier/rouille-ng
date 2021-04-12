@@ -1,10 +1,13 @@
 [package]
-name = "rouille"
+name = "rouille-ng"
 version = "3.0.0"
-authors = ["Pierre Krieger <pierre.krieger1708@gmail.com>"]
+authors = [
+    "Pierre Krieger <pierre.krieger1708@gmail.com>",
+    "Richard Bradfield <bradfier@fstab.me>"
+]
 license = "MIT/Apache-2.0"
-repository = "https://github.com/tomaka/rouille"
-documentation = "http://docs.rs/rouille"
+repository = "https://github.com/bradfier/rouille-ng"
+documentation = "http://docs.rs/rouille-ng"
 description = "High-level idiomatic web framework."
 readme = "README.md"
 keywords = ["web", "framework", "http", "rest"]
