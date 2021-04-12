@@ -8,7 +8,7 @@
 // according to those terms.
 
 #[macro_use]
-extern crate rouille;
+extern crate rouille_ng;
 extern crate postgres;
 extern crate serde;
 #[macro_use]
@@ -20,8 +20,8 @@ use postgres::transaction::Transaction;
 use postgres::Connection;
 use postgres::TlsMode;
 
-use rouille::Request;
-use rouille::Response;
+use rouille_ng::Request;
+use rouille_ng::Response;
 
 fn main() {
     // This example demonstrates how to connect to a database and perform queries when the client
@@ -44,7 +44,7 @@ fn main() {
 
     // We perform some initialization for the sake of the example.
     // In a real application you probably want to have a migrations system. This is out of scope
-    // of rouille.
+    // of rouille_ng.
     {
         let sql = "CREATE TABLE IF NOT EXISTS notes (
                     id SERIAL PRIMARY KEY,
@@ -66,7 +66,7 @@ fn main() {
     //
     // Note that in an ideal world, `move` wouldn't be necessary here. Unfortunately Rust isn't
     // smart enough yet to understand that the database can't be destroyed while we still use it.
-    rouille::start_server("localhost:8000", move |request| {
+    rouille_ng::start_server("localhost:8000", move |request| {
         // Since we wrapped the database connection around a `Mutex`, we lock it here before usage.
         //
         // This will give us exclusive access to the database connection for the handling of this
@@ -128,7 +128,7 @@ fn note_routes(request: &Request, db: &Transaction) -> Response {
             // This route returns the content of a note, if it exists.
 
             // Note that this code is a bit unergonomic, but this is mostly a problem with the
-            // database client library and not rouille itself.
+            // database client library and not rouille_ng itself.
 
             // To do so, we first create a variable that will receive the content of the note.
             let mut content: Option<String> = None;
@@ -150,7 +150,7 @@ fn note_routes(request: &Request, db: &Transaction) -> Response {
             // This route modifies the content of an existing note.
 
             // We start by reading the body of the HTTP request into a `String`.
-            let body = try_or_400!(rouille::input::plain_text_body(&request));
+            let body = try_or_400!(rouille_ng::input::plain_text_body(&request));
 
             // And write the content with a query. This line can only panic if the
             // SQL is malformed.
@@ -170,7 +170,7 @@ fn note_routes(request: &Request, db: &Transaction) -> Response {
             // This route creates a new note whose initial content is the body.
 
             // We start by reading the body of the HTTP request into a `String`.
-            let body = try_or_400!(rouille::input::plain_text_body(&request));
+            let body = try_or_400!(rouille_ng::input::plain_text_body(&request));
 
             // To do so, we first create a variable that will receive the content.
             let mut id: Option<i32> = None;

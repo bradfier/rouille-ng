@@ -10,7 +10,7 @@
 //! Dispatch a request to another HTTP server.
 //!
 //! This module provides functionnalities to dispatch a request to another server. This can be
-//! used to make rouille behave as a reverse proxy.
+//! used to make rouille_ng behave as a reverse proxy.
 //!
 //! This function call will return immediately after the remote server has finished sending its
 //! headers. The socket to the remote will be stored in the `ResponseBody` of the response.
@@ -32,8 +32,8 @@
 //! client.
 //!
 //! ```
-//! use rouille::{Request, Response};
-//! use rouille::proxy;
+//! use rouille_ng::{Request, Response};
+//! use rouille_ng::proxy;
 //!
 //! fn handle_request(request: &Request) -> Response {
 //!     let config = match request.header("Host") {

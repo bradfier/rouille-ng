@@ -14,7 +14,7 @@
 //! - The websocket client (usually the browser through some Javascript) must send a request to the
 //!   server to initiate the process. Examples for how to do this in Javascript are out of scope
 //!   of this documentation but should be easy to find on the web.
-//! - The server written with rouille must answer that request with the `start()` function defined
+//! - The server written with rouille_ng must answer that request with the `start()` function defined
 //!   in this module. This function returns an error if the request is not a websocket
 //!   initialization request.
 //! - The `start()` function also returns a `Receiver<Websocket>` object. Once that `Receiver`
@@ -47,13 +47,13 @@
 //! # Example
 //!
 //! ```
-//! # #[macro_use] extern crate rouille;
+//! # #[macro_use] extern crate rouille_ng;
 //! use std::sync::Mutex;
 //! use std::sync::mpsc::Receiver;
 //!
-//! use rouille::Request;
-//! use rouille::Response;
-//! use rouille::websocket;
+//! use rouille_ng::Request;
+//! use rouille_ng::Response;
+//! use rouille_ng::websocket;
 //! # fn main() {}
 //!
 //! fn handle_request(request: &Request, websockets: &Mutex<Vec<Receiver<websocket::Websocket>>>)
@@ -192,9 +192,9 @@ where
 /// # Example
 ///
 /// ```
-/// use rouille::websocket;
+/// use rouille_ng::websocket;
 ///
-/// # let request: rouille::Request = return;
+/// # let request: rouille_ng::Request = return;
 /// for protocol in websocket::requested_protocols(&request) {
 ///     // ...
 /// }

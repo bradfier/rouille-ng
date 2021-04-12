@@ -12,8 +12,8 @@
 /// # Example
 ///
 /// ```no_run
-/// # #[macro_use] extern crate rouille; fn main() {
-/// # let request: rouille::Request = unsafe { std::mem::uninitialized() };
+/// # #[macro_use] extern crate rouille_ng; fn main() {
+/// # let request: rouille_ng::Request = unsafe { std::mem::uninitialized() };
 /// let _result = router!(request,
 ///     // first route
 ///     (GET) (/) => {

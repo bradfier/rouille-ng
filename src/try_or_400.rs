@@ -18,10 +18,10 @@ use std::error::Error;
 /// # Example
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_ng;
 /// # fn main() {
-/// use rouille::Request;
-/// use rouille::Response;
+/// use rouille_ng::Request;
+/// use rouille_ng::Response;
 ///
 /// fn handle_something(request: &Request) -> Response {
 ///     let data = try_or_400!(post_input!(request, {

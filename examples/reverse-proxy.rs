@@ -7,17 +7,17 @@
 // notice may not be copied, modified, or distributed except
 // according to those terms.
 
-extern crate rouille;
+extern crate rouille_ng;
 
 fn main() {
-    // This example shows how to create a reverse proxy with rouille.
+    // This example shows how to create a reverse proxy with rouille_ng.
 
     println!("Now listening on localhost:8000");
 
-    rouille::start_server("localhost:8000", move |request| {
-        rouille::proxy::full_proxy(
+    rouille_ng::start_server("localhost:8000", move |request| {
+        rouille_ng::proxy::full_proxy(
             &request,
-            rouille::proxy::ProxyConfig {
+            rouille_ng::proxy::ProxyConfig {
                 addr: "example.com:80",
                 replace_host: Some("example.com".into()),
             },

@@ -31,8 +31,8 @@ use Response;
 /// of the `Cargo.toml`) if it exists.
 ///
 /// ```no_run
-/// rouille::start_server("localhost:8000", move |request| {
-///     let response = rouille::match_assets(&request, "public");
+/// rouille_ng::start_server("localhost:8000", move |request| {
+///     let response = rouille_ng::match_assets(&request, "public");
 ///     if response.is_success() {
 ///         return response;
 ///     }
@@ -64,9 +64,9 @@ use Response;
 /// the `remove_prefix` method on `Request`.
 ///
 /// ```no_run
-/// rouille::start_server("localhost:8000", move |request| {
+/// rouille_ng::start_server("localhost:8000", move |request| {
 ///     if let Some(request) = request.remove_prefix("/static") {
-///         return rouille::match_assets(&request, "public");
+///         return rouille_ng::match_assets(&request, "public");
 ///     }
 ///
 ///     // ...

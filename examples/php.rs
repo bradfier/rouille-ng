@@ -7,13 +7,13 @@
 // notice may not be copied, modified, or distributed except
 // according to those terms.
 
-extern crate rouille;
+extern crate rouille_ng;
 
-use rouille::cgi::CgiRun;
+use rouille_ng::cgi::CgiRun;
 use std::process::Command;
 
 fn main() {
-    rouille::start_server("localhost:8000", move |request| {
+    rouille_ng::start_server("localhost:8000", move |request| {
         // TODO: add logging
         let mut cmd = Command::new("php-cgi");
         cmd.arg("-n"); // Don't use a php.ini.

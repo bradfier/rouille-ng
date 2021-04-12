@@ -17,8 +17,8 @@
 //! ```
 //! # extern crate serde;
 //! # #[macro_use] extern crate serde_derive;
-//! # #[macro_use] extern crate rouille;
-//! # use rouille::{Request, Response};
+//! # #[macro_use] extern crate rouille_ng;
+//! # use rouille_ng::{Request, Response};
 //! # fn main() {}
 //!
 //! fn route_handler(request: &Request) -> Response {
@@ -28,7 +28,7 @@
 //!         field2: i32,
 //!     }
 //!
-//!     let json: Json = try_or_400!(rouille::input::json_input(request));
+//!     let json: Json = try_or_400!(rouille_ng::input::json_input(request));
 //!     Response::text(format!("field1's value is {}", json.field1))
 //! }
 //! ```
@@ -105,8 +105,8 @@ impl fmt::Display for JsonError {
 /// ```
 /// # extern crate serde;
 /// # #[macro_use] extern crate serde_derive;
-/// # #[macro_use] extern crate rouille;
-/// # use rouille::{Request, Response};
+/// # #[macro_use] extern crate rouille_ng;
+/// # use rouille_ng::{Request, Response};
 /// fn main() {}
 ///
 /// fn route_handler(request: &Request) -> Response {
@@ -116,7 +116,7 @@ impl fmt::Display for JsonError {
 ///         field2: i32,
 ///     }
 ///
-///     let json: Json = try_or_400!(rouille::input::json_input(request));
+///     let json: Json = try_or_400!(rouille_ng::input::json_input(request));
 ///     Response::text(format!("field1's value is {}", json.field1))
 /// }
 /// ```

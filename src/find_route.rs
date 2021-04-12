@@ -15,9 +15,9 @@
 /// # Example
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_ng;
 /// # fn main() {
-/// use rouille::{Request, Response};
+/// use rouille_ng::{Request, Response};
 ///
 /// fn handle_request_a(_: &Request) -> Response {
 /// # panic!()

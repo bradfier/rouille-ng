@@ -8,22 +8,22 @@
 // according to those terms.
 
 #[macro_use]
-extern crate rouille;
+extern crate rouille_ng;
 
 use std::thread;
 
-use rouille::websocket;
-use rouille::Response;
+use rouille_ng::websocket;
+use rouille_ng::Response;
 
 fn main() {
-    // This example demonstrates how to use websockets with rouille.
+    // This example demonstrates how to use websockets with rouille_ng.
 
     // Small message so that people don't need to read the source code.
     // Note that like all examples we only listen on `localhost`, so you can't access this server
     // from another machine than your own.
     println!("Now listening on localhost:8000");
 
-    rouille::start_server("localhost:8000", move |request| {
+    rouille_ng::start_server("localhost:8000", move |request| {
         router!(request,
             (GET) (/) => {
                 // The / route outputs an HTML client so that the user can try the websockets.
@@ -57,7 +57,7 @@ fn main() {
                 // The function returns a response to send back as part of the `start_server`
                 // function, and a `websocket` variable of type `Receiver<Websocket>`.
                 // Once the response has been sent back to the client, the `Receiver` will be
-                // filled by rouille with a `Websocket` object representing the websocket.
+                // filled by rouille_ng with a `Websocket` object representing the websocket.
                 let (response, websocket) = try_or_400!(websocket::start(&request, Some("echo")));
 
                 // Because of the nature of I/O in Rust, we need to spawn a separate thread for
@@ -73,7 +73,7 @@ fn main() {
             },
 
             // Default 404 route as with all examples.
-            _ => rouille::Response::empty_404()
+            _ => rouille_ng::Response::empty_404()
         )
     });
 }

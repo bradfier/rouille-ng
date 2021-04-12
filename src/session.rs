@@ -18,9 +18,9 @@
 //! Here is a basic example showing how to get a session ID.
 //!
 //! ```
-//! use rouille::Request;
-//! use rouille::Response;
-//! use rouille::session;
+//! use rouille_ng::Request;
+//! use rouille_ng::Response;
+//! use rouille_ng::session;
 //!
 //! fn handle_request(request: &Request) -> Response {
 //!     session::session(request, "SID", 3600, |session| {

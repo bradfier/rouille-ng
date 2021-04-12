@@ -14,22 +14,22 @@ use Response;
 /// Applies content encoding to the response.
 ///
 /// Analyzes the `Accept-Encoding` header of the request. If one of the encodings is recognized and
-/// supported by rouille, it adds a `Content-Encoding` header to the `Response` and encodes its
+/// supported by rouille_ng, it adds a `Content-Encoding` header to the `Response` and encodes its
 /// body.
 ///
 /// If the response already has a `Content-Encoding` header, this function is a no-op.
 /// If the response has a `Content-Type` header that isn't textual content, this function is a
 /// no-op.
 ///
-/// The gzip encoding is supported only if you enable the `gzip` feature of rouille (which is
+/// The gzip encoding is supported only if you enable the `gzip` feature of rouille_ng (which is
 /// enabled by default).
 ///
 /// # Example
 ///
 /// ```rust
-/// use rouille::content_encoding;
-/// use rouille::Request;
-/// use rouille::Response;
+/// use rouille_ng::content_encoding;
+/// use rouille_ng::Request;
+/// use rouille_ng::Response;
 ///
 /// fn handle(request: &Request) -> Response {
 ///     content_encoding::apply(request, Response::text("hello world"))
@@ -101,8 +101,8 @@ fn response_is_text(response: &Response) -> bool {
 /// # Example
 ///
 /// ```
-/// use rouille::{Request, Response};
-/// use rouille::content_encoding;
+/// use rouille_ng::{Request, Response};
+/// use rouille_ng::content_encoding;
 ///
 /// fn handle(request: &Request) -> Response {
 ///     for encoding in content_encoding::accepted_content_encodings(request) {

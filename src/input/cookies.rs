@@ -28,8 +28,8 @@ use Request;
 /// # Example
 ///
 /// ```
-/// use rouille::Request;
-/// use rouille::input;
+/// use rouille_ng::Request;
+/// use rouille_ng::input;
 ///
 /// # let request: Request = return;
 /// if let Some((_, val)) = input::cookies(&request).find(|&(n, _)| n == "cookie-name") {

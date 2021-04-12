@@ -54,7 +54,7 @@ pub struct Response {
     /// An opaque type that contains the body of the response.
     pub data: ResponseBody,
 
-    /// If set, rouille will give ownership of the client socket to the `Upgrade` object.
+    /// If set, rouille_ng will give ownership of the client socket to the `Upgrade` object.
     ///
     /// In all circumstances, the value of the `Connection` header is managed by the framework and
     /// cannot be customized. If this value is set, the response will automatically contain
@@ -79,7 +79,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::text("hello world");
     /// assert!(response.is_success());
     /// ```
@@ -93,7 +93,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::empty_400();
     /// assert!(response.is_error());
     /// ```
@@ -111,7 +111,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::redirect_301("/foo");
     /// ```
     #[inline]
@@ -136,7 +136,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::redirect_302("/bar");
     /// ```
     #[inline]
@@ -166,7 +166,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let user_id = 5;
     /// let response = Response::redirect_303(format!("/users/{}", user_id));
     /// ```
@@ -197,7 +197,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::redirect_307("/foo");
     /// ```
     #[inline]
@@ -227,7 +227,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::redirect_302("/bar");
     /// ```
     #[inline]
@@ -248,7 +248,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::from_data("application/octet-stream", vec![1, 2, 3, 4]);
     /// ```
     #[inline]
@@ -271,7 +271,7 @@ impl Response {
     ///
     /// ```no_run
     /// use std::fs::File;
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     ///
     /// let file = File::open("image.png").unwrap();
     /// let response = Response::from_file("image/png", file);
@@ -294,7 +294,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::html("<p>hello <strong>world</strong></p>");
     /// ```
     #[inline]
@@ -315,7 +315,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::svg("<svg xmlns='http://www.w3.org/2000/svg'/>");
     /// ```
     #[inline]
@@ -336,7 +336,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::text("hello world");
     /// ```
     #[inline]
@@ -359,8 +359,8 @@ impl Response {
     /// ```
     /// extern crate serde;
     /// #[macro_use] extern crate serde_derive;
-    /// #[macro_use] extern crate rouille;
-    /// use rouille::Response;
+    /// #[macro_use] extern crate rouille_ng;
+    /// use rouille_ng::Response;
     /// # fn main() {
     ///
     /// #[derive(Serialize)]
@@ -397,7 +397,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::basic_http_auth_login_required("realm");
     /// ```
     #[inline]
@@ -419,7 +419,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::empty_204();
     /// ```
     #[inline]
@@ -437,7 +437,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::empty_400();
     /// ```
     #[inline]
@@ -455,7 +455,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::empty_404();
     /// ```
     #[inline]
@@ -473,7 +473,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::empty_406();
     /// ```
     #[inline]
@@ -491,7 +491,7 @@ impl Response {
     /// # Example
     ///
     /// ```
-    /// use rouille::Response;
+    /// use rouille_ng::Response;
     /// let response = Response::text("hello world").with_status_code(500);
     /// ```
     #[inline]
@@ -574,8 +574,8 @@ impl Response {
     /// # Example
     ///
     /// ```rust
-    /// use rouille::Request;
-    /// use rouille::Response;
+    /// use rouille_ng::Request;
+    /// use rouille_ng::Response;
     ///
     /// fn handle(request: &Request) -> Response {
     ///     Response::text("hello world").with_etag(request, "my-etag-1234")
@@ -634,8 +634,8 @@ impl Response {
     /// # Example
     ///
     /// ```rust
-    /// use rouille::Request;
-    /// use rouille::Response;
+    /// use rouille_ng::Request;
+    /// use rouille_ng::Response;
     ///
     /// fn handle(request: &Request) -> Response {
     ///     Response::text("hello world").with_content_disposition_attachment("book.txt")
@@ -720,7 +720,7 @@ impl Response {
 /// # Example
 ///
 /// ```
-/// use rouille::ResponseBody;
+/// use rouille_ng::ResponseBody;
 /// let body = ResponseBody::from_string("hello world");
 /// ```
 pub struct ResponseBody {
@@ -734,7 +734,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```
-    /// use rouille::ResponseBody;
+    /// use rouille_ng::ResponseBody;
     /// let body = ResponseBody::empty();
     /// ```
     #[inline]
@@ -755,7 +755,7 @@ impl ResponseBody {
     /// ```no_run
     /// use std::io;
     /// use std::io::Read;
-    /// use rouille::ResponseBody;
+    /// use rouille_ng::ResponseBody;
     ///
     /// let body = ResponseBody::from_reader(io::stdin().take(128));
     /// ```
@@ -775,7 +775,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```
-    /// use rouille::ResponseBody;
+    /// use rouille_ng::ResponseBody;
     /// let body = ResponseBody::from_data(vec![12u8, 97, 34]);
     /// ```
     #[inline]
@@ -798,7 +798,7 @@ impl ResponseBody {
     ///
     /// ```no_run
     /// use std::fs::File;
-    /// use rouille::ResponseBody;
+    /// use rouille_ng::ResponseBody;
     ///
     /// let file = File::open("page.html").unwrap();
     /// let body = ResponseBody::from_file(file);
@@ -818,7 +818,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```
-    /// use rouille::ResponseBody;
+    /// use rouille_ng::ResponseBody;
     /// let body = ResponseBody::from_string("hello world");
     /// ```
     #[inline]

@@ -36,9 +36,9 @@ pub struct HttpAuthCredentials {
 /// # Example
 ///
 /// ```
-/// use rouille::input;
-/// use rouille::Request;
-/// use rouille::Response;
+/// use rouille_ng::input;
+/// use rouille_ng::Request;
+/// use rouille_ng::Response;
 ///
 /// fn handle(request: &Request) -> Response {
 ///     let auth = match input::basic_http_auth(request) {

@@ -24,16 +24,16 @@ use Response;
 /// `"{%Y-%m-%d %H:%M%S%.6f} UTC - {METHOD} {URL} - {ELAPSED_TIME} - {RESP_SATUS}"`
 ///
 /// If you would like to customize the log output or functionality (such as integrating
-/// with the [`log`](https://docs.rs/log) crate, see [`rouille::log_custom`](fn.log_custom.html))
+/// with the [`log`](https://docs.rs/log) crate, see [`rouille_ng::log_custom`](fn.log_custom.html))
 ///
 /// # Example
 ///
 /// ```
 /// use std::io;
-/// use rouille::{Request, Response};
+/// use rouille_ng::{Request, Response};
 ///
 /// fn handle(request: &Request) -> Response {
-///     rouille::log(request, io::stdout(), || {
+///     rouille_ng::log(request, io::stdout(), || {
 ///         Response::text("hello world")
 ///     })
 /// }
@@ -78,7 +78,7 @@ where
 
 /// Calls custom logging functions after processing a request.
 ///
-/// This is nearly identical to the [`rouille::log`](fn.log.html) function except it
+/// This is nearly identical to the [`rouille_ng::log`](fn.log.html) function except it
 /// takes two logging functions that will be called with access to the request/response
 /// structs and the total execution duration of the handler.
 ///
@@ -87,8 +87,8 @@ where
 /// ```
 /// #[macro_use] extern crate log;
 /// extern crate chrono;
-/// # extern crate rouille;
-/// use rouille::{Request, Response};
+/// # extern crate rouille_ng;
+/// use rouille_ng::{Request, Response};
 ///
 ///
 /// fn handle(request: &Request) -> Response {
@@ -99,7 +99,7 @@ where
 ///     let log_err = |req: &Request, _elap: std::time::Duration| {
 ///         error!("{} Handler panicked: {} {}", now, req.method(), req.raw_url());
 ///     };
-///     rouille::log_custom(request, log_ok, log_err, || {
+///     rouille_ng::log_custom(request, log_ok, log_err, || {
 ///         Response::text("hello world")
 ///     })
 /// }

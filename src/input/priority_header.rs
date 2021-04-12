@@ -21,7 +21,7 @@ use std::str::Split;
 /// # Example
 ///
 /// ```
-/// use rouille::input::priority_header_preferred;
+/// use rouille_ng::input::priority_header_preferred;
 ///
 /// let header = "text/plain; q=1.2, image/png; q=2.0";
 /// let handled = ["image/gif", "image/png", "text/plain"];
@@ -89,7 +89,7 @@ where
 /// # Example
 ///
 /// ```
-/// use rouille::input::parse_priority_header;
+/// use rouille_ng::input::parse_priority_header;
 ///
 /// let mut iter = parse_priority_header("text/plain, image/png; q=1.5");
 ///

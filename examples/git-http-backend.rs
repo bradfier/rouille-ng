@@ -7,22 +7,22 @@
 // notice may not be copied, modified, or distributed except
 // according to those terms.
 
-extern crate rouille;
+extern crate rouille_ng;
 
-use rouille::cgi::CgiRun;
+use rouille_ng::cgi::CgiRun;
 use std::env;
 use std::io;
 use std::process::Command;
 
 fn main() {
-    // This example demonstrates how to serve a git repository with rouille.
+    // This example demonstrates how to serve a git repository with rouille_ng.
     // After starting this example, you should be able to run `git clone http://localhost:8000/`
     // in order to clone the repository of the current working directory.
 
     println!("Now listening on localhost:8000");
 
-    rouille::start_server("localhost:8000", move |request| {
-        rouille::log(&request, io::stdout(), || {
+    rouille_ng::start_server("localhost:8000", move |request| {
+        rouille_ng::log(&request, io::stdout(), || {
             // When a request is received, we invoke the `git http-backend` command through CGI.
             let mut cmd = Command::new("git");
             cmd.arg("http-backend");
@@ -37,7 +37,7 @@ fn main() {
             // Our `cmd` is now ready. We can run it with the `start_cgi` method of the `CgiRun`
             // trait.
             // The `start_cgi` will add other CGI-specific environment variables, then feed stdin
-            // and analyze stdout to build a rouille response.
+            // and analyze stdout to build a rouille_ng response.
             //
             // Note that an error is returned only if `git http-backend` fails to execute, and not
             // if the client sends bad data for example. In other words, an error can only occur

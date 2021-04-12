@@ -1,8 +1,8 @@
 #[macro_use]
-extern crate rouille;
+extern crate rouille_ng;
 
-use rouille::Request;
-use rouille::Response;
+use rouille_ng::Request;
+use rouille_ng::Response;
 use std::collections::HashMap;
 use std::io;
 use std::sync::Mutex;
@@ -32,15 +32,15 @@ fn main() {
     // and a hashmap that associates each session ID with the data.
     let sessions_storage: Mutex<HashMap<String, SessionData>> = Mutex::new(HashMap::new());
 
-    rouille::start_server("localhost:8000", move |request| {
-        rouille::log(&request, io::stdout(), || {
+    rouille_ng::start_server("localhost:8000", move |request| {
+        rouille_ng::log(&request, io::stdout(), || {
             // We call `session::session` in order to assign a unique identifier to each client.
             // This identifier is tracked through a cookie that is automatically appended to the
             // response.
             //
             // The parameters of the function are the name of the cookie (here "SID") and the
             // duration of the session in seconds (here, one hour).
-            rouille::session::session(request, "SID", 3600, |session| {
+            rouille_ng::session::session(request, "SID", 3600, |session| {
                 // If the client already has an identifier from a previous request, we try to load
                 // the existing session data. If we successfully load data from `sessions_storage`,
                 // we make a copy of the data in order to avoid locking the session for too long.

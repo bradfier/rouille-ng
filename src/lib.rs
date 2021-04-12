@@ -7,15 +7,15 @@
 // notice may not be copied, modified, or distributed except
 // according to those terms.
 
-//! The rouille library is very easy to get started with.
+//! The rouille_ng library is very easy to get started with.
 //!
 //! Listening to a port is done by calling the [`start_server`](fn.start_server.html) function:
 //!
 //! ```no_run
-//! use rouille::Request;
-//! use rouille::Response;
+//! use rouille_ng::Request;
+//! use rouille_ng::Response;
 //!
-//! rouille::start_server("0.0.0.0:80", move |request| {
+//! rouille_ng::start_server("0.0.0.0:80", move |request| {
 //!     Response::text("hello world")
 //! });
 //! ```
@@ -141,10 +141,10 @@ macro_rules! try_or_404 {
 /// # Example
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_ng;
 /// # fn main() {
-/// use rouille::Request;
-/// use rouille::Response;
+/// use rouille_ng::Request;
+/// use rouille_ng::Response;
 ///
 /// fn handle_something(request: &Request) -> Response {
 ///     let data = try_or_400!(post_input!(request, {
@@ -184,7 +184,7 @@ macro_rules! assert_or_400 {
 /// ```should_fail
 /// let mut requests_counter = 0;
 ///
-/// rouille::start_server("localhost:80", move |request| {
+/// rouille_ng::start_server("localhost:80", move |request| {
 ///     requests_counter += 1;
 ///
 ///     // ... rest of the handler ...
@@ -201,7 +201,7 @@ macro_rules! assert_or_400 {
 /// use std::sync::Mutex;
 /// let requests_counter = Mutex::new(0);
 ///
-/// rouille::start_server("localhost:80", move |request| {
+/// rouille_ng::start_server("localhost:80", move |request| {
 ///     *requests_counter.lock().unwrap() += 1;
 ///
 ///     // rest of the handler
@@ -273,7 +273,7 @@ impl Executor {
 
 /// A listening server.
 ///
-/// This struct is the more manual server creation API of rouille and can be used as an alternative
+/// This struct is the more manual server creation API of rouille_ng and can be used as an alternative
 /// to the `start_server` function.
 ///
 /// The `start_server` function is just a shortcut for `Server::new` followed with `run`. See the
@@ -282,8 +282,8 @@ impl Executor {
 /// # Example
 ///
 /// ```no_run
-/// use rouille::Server;
-/// use rouille::Response;
+/// use rouille_ng::Server;
+/// use rouille_ng::Response;
 ///
 /// let server = Server::new("localhost:0", |request| {
 ///     Response::text("hello world")
@@ -392,8 +392,8 @@ where
     /// ```no_run
     /// use std::thread;
     /// use std::time::Duration;
-    /// use rouille::Server;
-    /// use rouille::Response;
+    /// use rouille_ng::Server;
+    /// use rouille_ng::Response;
     ///
     /// let server = Server::new("localhost:0", |request| {
     ///     Response::text("hello world")
@@ -433,8 +433,8 @@ where
     /// # Example
     ///
     /// ```no_run
-    /// use rouille::Server;
-    /// use rouille::Response;
+    /// use rouille_ng::Server;
+    /// use rouille_ng::Response;
     ///
     /// let server = Server::new("localhost:0", |request| {
     ///     Response::text("hello world")
@@ -475,7 +475,7 @@ where
 
             // Building the `Request` object.
             let tiny_http_request;
-            let rouille_request = {
+            let rouille_ng_request = {
                 let url = request.url().to_owned();
                 let method = request.method().as_str().to_owned();
                 let headers = request
@@ -502,13 +502,13 @@ where
 
             // Calling the handler ; this most likely takes a lot of time.
             // If the handler panics, we build a dummy response.
-            let mut rouille_response = {
-                // We don't use the `rouille_request` anymore after the panic, so it's ok to assert
+            let mut rouille_ng_response = {
+                // We don't use the `rouille_ng_request` anymore after the panic, so it's ok to assert
                 // it's unwind safe.
-                let rouille_request = AssertUnwindSafe(rouille_request);
+                let rouille_ng_request = AssertUnwindSafe(rouille_ng_request);
                 let res = panic::catch_unwind(move || {
-                    let rouille_request = rouille_request;
-                    handler(&rouille_request)
+                    let rouille_ng_request = rouille_ng_request;
+                    handler(&rouille_ng_request)
                 });
 
                 match res {
@@ -522,13 +522,13 @@ where
             };
 
             // writing the response
-            let (res_data, res_len) = rouille_response.data.into_reader_and_size();
-            let mut response = tiny_http::Response::empty(rouille_response.status_code)
+            let (res_data, res_len) = rouille_ng_response.data.into_reader_and_size();
+            let mut response = tiny_http::Response::empty(rouille_ng_response.status_code)
                 .with_data(res_data, res_len);
 
             let mut upgrade_header = "".into();
 
-            for (key, value) in rouille_response.headers {
+            for (key, value) in rouille_ng_response.headers {
                 if key.eq_ignore_ascii_case("Content-Length") {
                     continue;
                 }
@@ -546,7 +546,7 @@ where
                 }
             }
 
-            if let Some(ref mut upgrade) = rouille_response.upgrade {
+            if let Some(ref mut upgrade) = rouille_ng_response.upgrade {
                 let trq = tiny_http_request.lock().unwrap().take().unwrap();
                 let socket = trq.upgrade(&upgrade_header, response);
                 upgrade.build(socket);
@@ -706,11 +706,11 @@ impl Request {
     /// # Example
     ///
     /// ```
-    /// # use rouille::Request;
-    /// # use rouille::Response;
+    /// # use rouille_ng::Request;
+    /// # use rouille_ng::Response;
     /// fn handle(request: &Request) -> Response {
     ///     if let Some(request) = request.remove_prefix("/static") {
-    ///         return rouille::match_assets(&request, "/static");
+    ///         return rouille_ng::match_assets(&request, "/static");
     ///     }
     ///
     ///     // ...
@@ -739,7 +739,7 @@ impl Request {
     /// # Example
     ///
     /// ```
-    /// use rouille::{Request, Response};
+    /// use rouille_ng::{Request, Response};
     ///
     /// fn handle(request: &Request) -> Response {
     ///     if !request.is_secure() {
@@ -769,7 +769,7 @@ impl Request {
     /// # Example
     ///
     /// ```
-    /// use rouille::Request;
+    /// use rouille_ng::Request;
     ///
     /// let request = Request::fake_http("GET", "/hello%20world?foo=bar", vec![], vec![]);
     /// assert_eq!(request.raw_url(), "/hello%20world?foo=bar");
@@ -806,7 +806,7 @@ impl Request {
     /// # Example
     ///
     /// ```
-    /// use rouille::Request;
+    /// use rouille_ng::Request;
     ///
     /// let request = Request::fake_http("GET", "/hello%20world?foo=bar", vec![], vec![]);
     /// assert_eq!(request.url(), "/hello world");
@@ -875,7 +875,7 @@ impl Request {
     /// # Example
     ///
     /// ```
-    /// use rouille::{Request, Response};
+    /// use rouille_ng::{Request, Response};
     ///
     /// # fn track_user(request: &Request) {}
     /// fn handle(request: &Request) -> Response {
@@ -904,7 +904,7 @@ impl Request {
     ///
     /// ```
     /// use std::io::Read;
-    /// use rouille::{Request, Response, ResponseBody};
+    /// use rouille_ng::{Request, Response, ResponseBody};
     ///
     /// fn echo(request: &Request) -> Response {
     ///     let mut data = request.data().expect("Oops, body already retrieved, problem \
@@ -935,7 +935,7 @@ impl Request {
     /// # Example
     ///
     /// ```
-    /// use rouille::{Request, Response};
+    /// use rouille_ng::{Request, Response};
     ///
     /// fn handle(request: &Request) -> Response {
     ///     Response::text(format!("Your IP is: {:?}", request.remote_addr()))

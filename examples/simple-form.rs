@@ -1,5 +1,5 @@
 #[macro_use]
-extern crate rouille;
+extern crate rouille_ng;
 
 use std::io;
 
@@ -10,12 +10,12 @@ fn main() {
     // from another machine than your own.
     println!("Now listening on localhost:8000");
 
-    rouille::start_server("localhost:8000", move |request| {
-        rouille::log(&request, io::stdout(), || {
+    rouille_ng::start_server("localhost:8000", move |request| {
+        rouille_ng::log(&request, io::stdout(), || {
             router!(request,
                 (GET) (/) => {
                     // When viewing the home page, we return an HTML document described below.
-                    rouille::Response::html(FORM)
+                    rouille_ng::Response::html(FORM)
                 },
 
                 (POST) (/submit) => {
@@ -29,17 +29,17 @@ fn main() {
                     // we return a 400 response.
                     let data = try_or_400!(post_input!(request, {
                         txt: String,
-                        files: Vec<rouille::input::post::BufferedFile>,
+                        files: Vec<rouille_ng::input::post::BufferedFile>,
                     }));
 
                     // We just print what was received on stdout. Of course in a real application
                     // you probably want to process the data, eg. store it in a database.
                     println!("Received data: {:?}", data);
 
-                    rouille::Response::html("Success! <a href=\"/\">Go back</a>.")
+                    rouille_ng::Response::html("Success! <a href=\"/\">Go back</a>.")
                 },
 
-                _ => rouille::Response::empty_404()
+                _ => rouille_ng::Response::empty_404()
             )
         })
     });

@@ -17,9 +17,9 @@
 //!
 //! ```no_run
 //! use std::process::Command;
-//! use rouille::cgi::CgiRun;
+//! use rouille_ng::cgi::CgiRun;
 //!
-//! rouille::start_server("localhost:8080", move |request| {
+//! rouille_ng::start_server("localhost:8080", move |request| {
 //!     Command::new("php-cgi").start_cgi(request).unwrap()
 //! });
 //! ```
@@ -106,7 +106,7 @@ pub trait CgiRun {
 
 impl CgiRun for Command {
     fn start_cgi(mut self, request: &Request) -> Result<Response, CgiError> {
-        self.env("SERVER_SOFTWARE", "rouille")
+        self.env("SERVER_SOFTWARE", "rouille-ng")
             .env("SERVER_NAME", "localhost") // FIXME:
             .env("GATEWAY_INTERFACE", "CGI/1.1")
             .env("SERVER_PROTOCOL", "HTTP/1.1") // FIXME:

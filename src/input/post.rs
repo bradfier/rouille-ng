@@ -12,9 +12,9 @@
 //! In order to parse the body of a request, you can use the `post_input!` macro.
 //!
 //! ```
-//! # #[macro_use] extern crate rouille;
-//! use rouille::Request;
-//! use rouille::Response;
+//! # #[macro_use] extern crate rouille_ng;
+//! use rouille_ng::Request;
+//! use rouille_ng::Response;
 //!
 //! fn handle_request(request: &Request) -> Response {
 //!     let input = try_or_400!(post_input!(request, {
@@ -57,7 +57,7 @@
 //! > **Note**: You may find resources on the web telling you that you must put brackets (`[` `]`)
 //! > after the name of inputs of type `<select multiple>` and `<input type="file" multiple>`.
 //! > This is only necessary for some programming languages and frameworks, and is not relevant
-//! > for rouille. With rouille you just need to use a `Vec` for the data type.
+//! > for rouille_ng. With rouille_ng you just need to use a `Vec` for the data type.
 //!
 //! You can also use your own types by implementing the
 //! [`DecodePostField` trait](trait.DecodePostField.html). See below.
@@ -73,10 +73,10 @@
 //! Example:
 //!
 //! ```
-//! # #[macro_use] extern crate rouille;
-//! use rouille::Request;
-//! use rouille::Response;
-//! use rouille::input::post::BufferedFile;
+//! # #[macro_use] extern crate rouille_ng;
+//! use rouille_ng::Request;
+//! use rouille_ng::Response;
+//! use rouille_ng::input::post::BufferedFile;
 //!
 //! fn handle_request(request: &Request) -> Response {
 //!     let input = try_or_400!(post_input!(request, {
@@ -96,7 +96,7 @@
 //! The template parameter of the trait represents the type of the configuration object that is
 //! accepted by the methods. If the user doesn't specify any configuration, the type will be `()`.
 //!
-//! When rouille's parser finds a field with the correct name it will attempt to call the
+//! When rouille_ng's parser finds a field with the correct name it will attempt to call the
 //! `from_field` method, and if it find a file with the correct name it will attempt to call the
 //! `from_file` method. You should return `PostFieldError::WrongFieldType` if you're
 //! expecting a file and `from_field` was called, or vice-versa.
@@ -289,7 +289,7 @@ pub trait DecodePostField<Config>: fmt::Debug {
         Self: Sized,
         R: BufRead;
 
-    /// When multiple fields with the same name are found in the client's input, rouille will build
+    /// When multiple fields with the same name are found in the client's input, rouille_ng will build
     /// an object for each of them and then merge them with this method.
     ///
     /// The default implementation returns `UnexpectedMultipleValues`.

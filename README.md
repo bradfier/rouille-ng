@@ -37,6 +37,12 @@ If you have general knowledge about how HTTP works, [the documentation](https://
 and [the well-documented examples](https://github.com/bradfier/rouille-ng/tree/master/examples) are
 good resources to get you started.
 
+You can swap your dependency on Rouille for Rouille NG by adding the following to your `Cargo.toml`
+```toml
+[dependencies]
+rouille = { package = "rouille-ng", version = "3" }
+```
+
 ## License
 
 Licensed under either of

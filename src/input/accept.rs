@@ -28,9 +28,9 @@
 /// # Basic example
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
-/// use rouille::Request;
-/// use rouille::Response;
+/// # #[macro_use] extern crate rouille_ng;
+/// use rouille_ng::Request;
+/// use rouille_ng::Response;
 ///
 /// fn handle(request: &Request) -> Response {
 ///     accept!(request,
@@ -44,9 +44,9 @@
 /// # Example with a default handler
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
-/// use rouille::Request;
-/// use rouille::Response;
+/// # #[macro_use] extern crate rouille_ng;
+/// use rouille_ng::Request;
+/// use rouille_ng::Response;
 ///
 /// fn handle(request: &Request) -> Response {
 ///     accept!(request,

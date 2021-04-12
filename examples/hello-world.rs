@@ -8,13 +8,13 @@
 // according to those terms.
 
 #[macro_use]
-extern crate rouille;
+extern crate rouille_ng;
 
 fn main() {
     println!("Now listening on localhost:8000");
 
     // The `start_server` starts listening forever on the given address.
-    rouille::start_server("localhost:8000", move |request| {
+    rouille_ng::start_server("localhost:8000", move |request| {
         // The closure passed to `start_server` will be called once for each client request. It
         // will be called multiple times concurrently when there are multiple clients.
 
@@ -32,7 +32,7 @@ fn main() {
             (GET) (/) => {
                 // If the request's URL is `/`, we jump here.
                 // This block builds a `Response` object that redirects to the `/hello/world`.
-                rouille::Response::redirect_302("/hello/world")
+                rouille_ng::Response::redirect_302("/hello/world")
             },
 
             (GET) (/hello/world) => {
@@ -40,13 +40,13 @@ fn main() {
                 println!("hello world");
 
                 // Builds a `Response` object that contains the "hello world" text.
-                rouille::Response::text("hello world")
+                rouille_ng::Response::text("hello world")
             },
 
             (GET) (/panic) => {
                 // If the request's URL is `/panic`, we jump here.
                 //
-                // This block panics. Fortunately rouille will automatically catch the panic and
+                // This block panics. Fortunately rouille_ng will automatically catch the panic and
                 // send back a 500 error message to the client. This prevents the server from
                 // closing unexpectedly.
                 panic!("Oops!")
@@ -61,7 +61,7 @@ fn main() {
                 println!("u32 {:?}", id);
 
                 // For the same of the example we return an empty response with a 400 status code.
-                rouille::Response::empty_400()
+                rouille_ng::Response::empty_400()
             },
 
             (GET) (/{id: String}) => {
@@ -73,12 +73,12 @@ fn main() {
 
                 // Builds a `Response` object that contains "hello, " followed with the value
                 // of `id`.
-                rouille::Response::text(format!("hello, {}", id))
+                rouille_ng::Response::text(format!("hello, {}", id))
             },
 
             // The code block is called if none of the other blocks matches the request.
             // We return an empty response with a 404 status code.
-            _ => rouille::Response::empty_404()
+            _ => rouille_ng::Response::empty_404()
         )
     });
 }
