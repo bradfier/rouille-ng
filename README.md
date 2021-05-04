@@ -1,6 +1,11 @@
+# Archived
+
+This project is archived, as I have been able to merge many of the improvements into the original [Rouille](https://github.com/tomaka/rouille),
+please head over there and open any issues or PRs you had considered sending to this project!
+
 # Rouille NG
 
-**rouille-ng** is a maintenance fork of [Rouille](https://github.com/tomaka/rouille), 
+**rouille-ng** ~is~ was a maintenance fork of [Rouille](https://github.com/tomaka/rouille)
 
 Rouille is a micro-web-framework library. It creates a listening socket and parses incoming HTTP
 requests from clients, then gives you the hand to process the request.
